@@ -67,9 +67,56 @@ This script deletes all occurrences of () with anything in between
 
 
 
+'''
+This script deletes all occurrences of "" with anything in between
+'''
+
+# import re
+
+# # Read in the original dictionary
+# with open("tmp.txt","r") as f:
+#     raw = f.readlines()
+
+# # The new file to save to
+# with open("new.txt","w") as f2:
+#     for line in raw:
+#         res = re.sub("\".*?\"","",line)           
+#         f2.write(res)
+
+
+
+
 
 '''
-This script 
+This script removes all the empty lines and writes a space in their respective new-line charater
+'''
+
+# import re
+
+# # Read in the original dictionary
+# with open("tmp.txt","r") as f:
+#     raw = f.readlines()
+#     length = len(raw)
+
+# # The new file to save to
+# with open("new.txt","w") as f2:
+#     for line in raw:
+#         if not line.strip():
+#             f2.write(line)
+#         else:
+#             res = re.sub(r"\n"," ",line)           
+#             f2.write(res)
+
+
+
+
+
+
+
+
+
+'''
+This script places double quotes around the dictionary keys and values 
 '''
 
 import re
@@ -77,18 +124,12 @@ import re
 # Read in the original dictionary
 with open("tmp.txt","r") as f:
     raw = f.readlines()
-    length = len(raw)
 
 # The new file to save to
 with open("new.txt","w") as f2:
-    for index, line in enumerate(raw):
-        if not line.strip():
-            if index < length - 1:
-                next_ = raw[index + 1]            
-            if index > 0:
-                prev = raw[index - 1]
-            f2.write(line)
-        elif line.strip() and index < length - 1 and (not raw[index + 1].strip()):
-            res = re.sub(r"\n"," ",line)           
-            f2.write(res)
+    for line in raw:
+        res = re.sub(r"  ","\" : \"",line,1)            
+        res = "\"" + res
+        res = res[:len(res)-2] + "\",\n"
+        f2.write(res)
             
