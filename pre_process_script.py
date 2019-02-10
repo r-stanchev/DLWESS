@@ -3,22 +3,22 @@ L D O C E
 This script removes all lines from "(1" to "(7" inclusive
 '''
 
-# # Read in the original dictionary
-# with open("ldoce.txt","r") as f:
-#     raw = f.readlines()
+    # # Read in the original dictionary
+    # with open("ldoce.txt","r") as f:
+    #     raw = f.readlines()
 
-# # The new file to save to
-# with open("new.txt","w") as f2:
-#     for line in raw:
-#         line = line.lstrip()
-#         if  (not line.startswith("(1")) and \
-#             (not line.startswith("(2")) and \
-#             (not line.startswith("(3")) and \
-#             (not line.startswith("(4")) and \
-#             (not line.startswith("(5")) and \
-#             (not line.startswith("(6")) and \
-#             (not line.startswith("(7")):
-#             f2.write(line)
+    # # The new file to save to
+    # with open("new.txt","w") as f2:
+    #     for line in raw:
+    #         line = line.lstrip()
+    #         if  (not line.startswith("(1")) and \
+    #             (not line.startswith("(2")) and \
+    #             (not line.startswith("(3")) and \
+    #             (not line.startswith("(4")) and \
+    #             (not line.startswith("(5")) and \
+    #             (not line.startswith("(6")) and \
+    #             (not line.startswith("(7")):
+    #             f2.write(line)
 
 
 
@@ -41,7 +41,6 @@ with open("new.txt","w") as f2:
         else:
             line = line.lstrip()
             f2.write(line)
-
 
 
 
@@ -87,6 +86,7 @@ with open("new.txt","w") as f2:
 
 
 
+
 '''
 This script deletes all occurrences of "" with anything in between
 as well as the single " 
@@ -108,12 +108,9 @@ with open("new.txt","w") as f2:
 
 
 
-
-
-
-
 '''
 This script places double quotes around the dictionary keys and values 
+and it transforms each word-definition entry to a tuple.
 '''
 
 import re
@@ -123,17 +120,26 @@ with open("new.txt","r") as f:
     raw = f.readlines()
 
 # The new file to save to
-with open("data.txt","w") as f2:
+with open("data.py","w") as f2:
+    f2.write("# -*- coding: utf-8 -*- ")
+    f2.write("\ndata = [\n")
     for line in raw:
         res = re.sub(r"  ","\" , \"",line,1)  
         res = "(\"" + res
         res = res[:len(res)-2] + "\"),\n"
         f2.write(res)
-            
+    f2.write("\n]")
+
 
 
 '''
                 After running these scripts on the the file "azdictionary.txt" I had to manually delete
                 a couple of lines which were preventing for the rest of the entries to be in dictionary 
                 format. 
+
+                UPDATE: I removed the problematic lines from the original "azdictionary.txt" file so
+                there is no need to delete them after the pre-processing step each time. 
+                The end-ruslt file is a .py file. In order to work with this dictionary, it is
+                neccessary to first convert the tuples to a list(place angle brackets around them 
+                and name the lsit) and import the file wherever it is going to be used.
 '''
