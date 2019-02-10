@@ -123,11 +123,11 @@ with open("new.txt","r") as f:
     raw = f.readlines()
 
 # The new file to save to
-with open("new.json","w") as f2:
+with open("data.txt","w") as f2:
     for line in raw:
-        res = re.sub(r"  ","\" : \"",line,1)  
-        res = "\"" + res
-        res = res[:len(res)-2] + "\",\n"
+        res = re.sub(r"  ","\" , \"",line,1)  
+        res = "(\"" + res
+        res = res[:len(res)-2] + "\"),\n"
         f2.write(res)
             
 
