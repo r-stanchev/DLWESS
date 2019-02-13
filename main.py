@@ -30,18 +30,26 @@ def lookup_word(word):
 
 
 print("\nWelcome to Rado's dictionary service!\nSimply enter a word which you want to know the meaning of.\n")
-word = raw_input("Enter word: ")
+word = ""
+while word != "quit":
+    word = raw_input("\nEnter word: ")
+    if word == "quit":
+        break
+    status,lookup_res = lookup_word(word)
+    alternatives = ""
 
-status,lookup_res = lookup_word(word)
-alternatives = ""
-if status == 0:
-    for alternative in lookup_res:
-        alternatives += str(alternative) + ", "
-    alternatives = alternatives[0:len(alternatives)-2]
-    print("Word not found. Perhaps you meant one of these: " + str(alternatives) + "?")
-elif status == 1:
-    for definition in lookup_res:
-        print(definition + "\n")
+    if status == 0:     # Suggest words with similar spelling
+        if not lookup_res:      # Check if similar words were found
+            print("No similar words were found!")
+        else:
+            for alternative in lookup_res:
+                alternatives += str(alternative) + ", "
+            alternatives = alternatives[0:len(alternatives)-2]      # remove the comma and space afer the last word
+            print("Word not found. Perhaps you meant one of these: " + str(alternatives) + "?")
+    
+    elif status == 1:       # Show definition(s) of the word
+        for iteration,definition in enumerate(lookup_res):
+            print("\n" + "Definition " + str(iteration+1) + ": " + definition)
 
 
 
