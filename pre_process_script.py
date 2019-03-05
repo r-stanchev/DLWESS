@@ -108,10 +108,41 @@ with open("new.txt","w") as f2:
 
 
 
+
+
+
+'''
+This script places double quotes around the dictionary keys-values pair 
+and it transforms each word-definition pair into a list.
+'''
+
+import re
+
+# Read in the original dictionary
+with open("new.txt","r") as f:
+    raw = f.readlines()
+
+# The new file to save to
+with open("data.py","w") as f2:
+    f2.write("# -*- coding: utf-8 -*- ")
+    f2.write("\ndata = [\n")
+    for line in raw:
+        res = re.sub(r"  "," ",line,1)  
+        res = "[\"" + res
+        res = res[:len(res)-2] + "\"],\n"
+        f2.write(res)
+    f2.write("\n]")
+
+
+
+
+
+
+
 '''
 This script places double quotes around the dictionary keys and values 
 and it transforms each word-definition entry to a tuple.
-'''
+
 
 import re
 
@@ -129,7 +160,7 @@ with open("data.py","w") as f2:
         res = res[:len(res)-2] + "\"),\n"
         f2.write(res)
     f2.write("\n]")
-
+'''
 
 
 '''
@@ -146,5 +177,8 @@ with open("data.py","w") as f2:
 
                                                 UPDATE 2:
                 Need to remove all instances of   /.    and     /,    after the scipt finishes.
-                This is easyly done thorugh the text editor's find/replace functions.
+                This is easily done thorugh the text editor's find/replace functions. (This is needed
+                only when using the last script for making a list of tuples.)
+
+                
 '''

@@ -3,6 +3,7 @@ from data import *
 from difflib import get_close_matches
 
 
+## Necessary in order to merge the multiple definitions that some words may have 
 # Create a defaultdict object with a list as default factory
 dictionary = defaultdict(list)
 
