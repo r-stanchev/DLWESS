@@ -46,7 +46,7 @@ with open("new.txt","w") as f2:
 
 
 '''
-This script removes all the empty lines and writes a space in their respective new-line charater
+This script removes all the empty lines and writes a space instead of their respective new-line charater
 '''
 
 import re
@@ -111,27 +111,27 @@ with open("new.txt","w") as f2:
 
 
 
-'''
-This script places double quotes around the dictionary keys-values pair 
-and it transforms each word-definition pair into a list.
-'''
+# '''
+# This script places double quotes around the dictionary keys-values pair 
+# and it transforms each word-definition pair into a list.
+# '''
 
-import re
+# import re
 
-# Read in the original dictionary
-with open("new.txt","r") as f:
-    raw = f.readlines()
+# # Read in the original dictionary
+# with open("new.txt","r") as f:
+#     raw = f.readlines()
 
-# The new file to save to
-with open("data.py","w") as f2:
-    f2.write("# -*- coding: utf-8 -*- ")
-    f2.write("\ndata = [\n")
-    for line in raw:
-        res = re.sub(r"  "," ",line,1)  
-        res = "[\"" + res
-        res = res[:len(res)-2] + "\"],\n"
-        f2.write(res)
-    f2.write("\n]")
+# # The new file to save to
+# with open("data.py","w") as f2:
+#     f2.write("# -*- coding: utf-8 -*- ")
+#     f2.write("\ndata = [\n")
+#     for line in raw:
+#         res = re.sub(r"  "," ",line,1)  
+#         res = "[\"" + res
+#         res = res[:len(res)-2] + "\"],\n"
+#         f2.write(res)
+#     f2.write("\n]")
 
 
 
@@ -142,7 +142,7 @@ with open("data.py","w") as f2:
 '''
 This script places double quotes around the dictionary keys and values 
 and it transforms each word-definition entry to a tuple.
-
+'''
 
 import re
 
@@ -160,7 +160,7 @@ with open("data.py","w") as f2:
         res = res[:len(res)-2] + "\"),\n"
         f2.write(res)
     f2.write("\n]")
-'''
+
 
 
 '''
