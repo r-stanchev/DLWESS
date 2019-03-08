@@ -12,12 +12,12 @@ def create_model():
     tokenizer = RegexpTokenizer(r'\w+')
 
     # Make every word lowercase and tokenize each line 
-    for t,row in enumerate(data):
+    for t,row in enumerate(refined_data):
         for i,element in enumerate(row):
             row[i] = element.lower()
-        data[t] = tokenizer.tokenize(str(data[t]))
+        refined_data[t] = tokenizer.tokenize(str(refined_data[t]))
 
     # Train the model and save it in the current working directory
-    model = gensim.models.Word2Vec(data,min_count=1,size=10)
+    model = gensim.models.Word2Vec(refined_data,min_count=1,size=10)
     model.save("./mymodel")
 
