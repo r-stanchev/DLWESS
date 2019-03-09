@@ -1,7 +1,19 @@
 import gensim
+from gensim.models import KeyedVectors
+import sys
+from gensim.scripts.glove2word2vec import glove2word2vec
+import os
 
-# Load a previously saved model
-model = gensim.models.Word2Vec.load("./mymodel")
+if sys.argv[1] == "dict":
+    # Load a previously saved model
+    # In this case this is the model, trained from the dictionary
+    model = gensim.models.Word2Vec.load("./mymodel")
+elif sys.argv[1] == "glove":
+    # Load a previously saved model
+    # In this case this is the model, composed using Glove's pre-trained word vectors(6B,50d)
+    # path = os.path.dirname(os.path.realpath(""))
+    model = KeyedVectors.load("./glove_model_6B_50d")
+    
 
 
 print("\nWelcome to Rado's word similarity service!")

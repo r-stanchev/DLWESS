@@ -206,8 +206,8 @@ with open("data.py","w") as f2:
         
         # Turns each round brace into a square bracket;
         # Replaces all single quotes with double ones 
-        res = re.sub(r"\"\)","\"]",res,1)
-        res = re.sub(r"\'\)","\"]",res,1)
+        res = re.sub(r"\"\)","\"],",res,1)
+        res = re.sub(r"\'\)","\"],",res,1)
         f2.write(res)
     f2.write("\n]")
 
@@ -229,5 +229,9 @@ os.remove("temp.txt")
                                                 UPDATE 2:
                 Need to remove all instances of   /.    and     /,    after the scipt finishes.
                 This is easily done thorugh the text editor's find/replace functions.
+
+
+                                                UPDATE 3:
+                Line 87317 has double closing brackets. Need to delete one of them.
                 
 '''
