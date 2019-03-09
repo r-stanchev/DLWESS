@@ -127,7 +127,6 @@ def lookup_word(word):
     return (dictionary[word])
 
 
-
 '''
 Replaces the definitions of words, which have the following definitions:
     See...
@@ -142,6 +141,8 @@ with either the definitions of the words they reference or an empty line when ne
 for i in range(5):
     temp_refined_data = []
     for line in data:
+        if not line[1]:     # Skip words which have no definitions
+            continue
         res = line[1].split(' ')
         if res[0] == "Alt." and res[1] == "of":
             target_word = re.sub('[!.,@#$]', '', res[2])
@@ -173,7 +174,7 @@ with open("temp.txt","w") as f:
 
 import os
 os.remove("new.txt")
-# os.remove("data.py")
+os.remove("data.py")
 
 
 '''
@@ -192,21 +193,25 @@ with open("data.py","w") as f2:
     f2.write("# -*- coding: utf-8 -*- ")
     f2.write("\ndata = [\n")
     for line in raw:
-        res = re.sub("(","[",line,1)  
-        res = re.sub(")","]",line,1)  
+        # Turns each round brace into a square bracket;
+        # Replaces all single quotes with double ones 
+        res = re.sub(r"\(\"","[\"",line,1)
+        res = re.sub(r"\(\'","[\"",res,1)
+
+        # Remove the comma between word and definition, essentially joining the two strings
+        res = re.sub("\'\, \'"," ",res,1)
+        res = re.sub("\'\, \""," ",res,1)
+        res = re.sub("\"\, \'"," ",res,1)
+        res = re.sub("\"\, \""," ",res,1)
         
-        # res = "[\"" + res
-        # res = res[:len(res)-2] + "\"],\n"
+        # Turns each round brace into a square bracket;
+        # Replaces all single quotes with double ones 
+        res = re.sub(r"\"\)","\"]",res,1)
+        res = re.sub(r"\'\)","\"]",res,1)
         f2.write(res)
     f2.write("\n]")
 
 os.remove("temp.txt")
-
-
-
-
-
-
 
 
 '''
@@ -223,8 +228,6 @@ os.remove("temp.txt")
 
                                                 UPDATE 2:
                 Need to remove all instances of   /.    and     /,    after the scipt finishes.
-                This is easily done thorugh the text editor's find/replace functions. (This is needed
-                only when using the last script for making a list of tuples.)
-
+                This is easily done thorugh the text editor's find/replace functions.
                 
 '''
