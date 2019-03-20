@@ -23,7 +23,7 @@ def create_model_dict():
 
     # Train the model and save it in the current working directory
     model = gensim.models.Word2Vec(refined_data,min_count=1,size=10)
-    model.save("./dict_model")
+    model.save("./models/dict_model")
 
 
 '''
@@ -43,7 +43,7 @@ def create_model_glove():
     _ = glove2word2vec(glove_file,tmp_file)
 
     model = KeyedVectors.load_word2vec_format(tmp_file)
-    model.save("./glove_model_6B_50d")
+    model.save("./models/glove_model_6B_50d")
 
 
 def main():

@@ -93,9 +93,9 @@ with open("new.txt","r") as f:
     raw = f.readlines()
 
 # The new file to save to
-with open("data.py","w") as f2:
+with open("tuples_data.py","w") as f2:
     f2.write("# -*- coding: utf-8 -*- ")
-    f2.write("\ndata = [\n")
+    f2.write("\ntuples_data = [\n")
     for line in raw:
         res = re.sub(r"  ","\" , \"",line,1)  
         res = "(\"" + res
@@ -107,14 +107,14 @@ with open("data.py","w") as f2:
 
 
 from collections import defaultdict
-from data import *
+from tuples_data import *
 
 ## Necessary in order to merge the multiple definitions that some words may have 
 # Create a defaultdict object with a list as default factory
 dictionary = defaultdict(list)
 
 # Append the list-of-tuples values to the dictionary
-for line in data:
+for line in tuples_data:
     dictionary[line[0]].append(line[1])
 
 
@@ -140,7 +140,7 @@ with either the definitions of the words they reference or an empty line when ne
 
 for i in range(5):
     temp_refined_data = []
-    for line in data:
+    for line in tuples_data:
         if not line[1]:     # Skip words which have no definitions
             continue
         res = line[1].split(' ')
@@ -174,7 +174,7 @@ with open("temp.txt","w") as f:
 
 import os
 os.remove("new.txt")
-os.remove("data.py")
+# os.remove("data.py")
 
 
 '''

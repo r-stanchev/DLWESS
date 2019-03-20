@@ -1,6 +1,9 @@
 # Ignore .vscode folder
 /.vscode/
 
+# Ignore the folder with models
+/models/
+
 # Ignore the original dictionary because it is too large and 
 # the file itself is not expected to change
 *.txt
