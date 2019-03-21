@@ -12,30 +12,40 @@ def embeddings(model):
     print("Or, if you'd like to find out how semantically similar two words are - enter the two words to see the similarity percentage.\n")
     word = ""
     while word != "quit":
-        word = raw_input("\nEnter word: ")
+        word = raw_input("\nEnter word: ").lower()
         words = word.split()
         if words[0] == "quit" and len(words) == 1:
             break
+        
+        # If the user entered only 1 word, show the top 5 most similar words to it
         elif len(words) == 1:
-            print("The top 5 most similar words are:")
             try:
                 synonims = model.similar_by_word(str(word), topn=5)
             except Exception:
-                print("Word not found!")
+                print("Error! The word could not be found in the corpus. Perhaps try a different word?")
                 continue
-            for synonym in synonims:
-                print(synonym)
+            # Show results
+            print("The top 5 most similar words are:")
+            for n,synonym in enumerate(synonims):
+                print(str(n+1) + ") " + synonym[0])
+        
+        # If the user has entered 2 words, show their cosine similarity
         elif len(words) == 2:
             try:
                 res = model.similarity(str(words[0]),str(words[1]))
             except Exception:
-                print("Temp\n")
-                print(res)
+                print("Error! One of the words could not be found in the corpus. Perhaps try a different pair?\n")
                 continue
             res = round(res,3)
-            print("The cosine similarity between " + str(words[0]) + " and " + str(words[1]) + " is " + str(res))
+            print("The cosine similarity between \"" + str(words[0]) + "\" and \"" + str(words[1]) + "\" is " + str(res))
         else:
-            print("Please enter at most 2 words!")
+            try:
+                sent_2 = raw_input("\nEnter the second sentence: ").lower().split()
+                res = model.n_similarity(words,sent_2)
+                print("Res = " + str(res))
+            except Exception:
+                print("Error! One of the sentences contains an invalid word. Perhaps try a different pair?\n")
+                continue
 
 
 
