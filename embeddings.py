@@ -57,7 +57,7 @@ def main():
     if sys.argv[1] == "dict":
         # Load a previously saved model
         # In this case this is the model, trained from the dictionary
-        model = gensim.models.Word2Vec.load("./models/mymodel")
+        model = gensim.models.Word2Vec.load("./models/dict_model")
     elif sys.argv[1] == "glove":
         # Load a previously saved model
         # In this case this is the model, composed using Glove's pre-trained word vectors(6B,50d)
