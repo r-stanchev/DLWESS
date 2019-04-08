@@ -144,20 +144,30 @@ for i in range(5):
         if not line[1]:     # Skip words which have no definitions
             continue
         res = line[1].split(' ')
+
+        # Alt. of...
         if res[0] == "Alt." and res[1] == "of":
             target_word = re.sub('[!.,@#$]', '', res[2])
             target_definition = lookup_word(target_word)
             temp_refined_data.append((line[0],''.join(target_definition)))
+        
+        # Same as...
         elif res[0] == "Same" and res[1] == "as" and len(res) > 2:
             target_word = re.sub('[!.,@#$]', '', res[2])
             target_definition = lookup_word(target_word)
             temp_refined_data.append((line[0],''.join(target_definition)))
+        
+        # of...
         elif res[0] == "of":
             continue
+        
+        # pret. of...
         elif res[0] == "pret." and res[1] == "of":
             target_word = re.sub('[!.,@#$]', '', res[2])
             target_definition = lookup_word(target_word)
             temp_refined_data.append((line[0],''.join(target_definition)))
+        
+        # See...
         elif res[0] == "See":
             target_word = re.sub('[!.,@#$]', '', res[1])
             target_definition = lookup_word(target_word)
