@@ -184,7 +184,6 @@ with open("temp.txt","w") as f:
 
 import os
 os.remove("new.txt")
-# os.remove("data.py")
 
 
 '''

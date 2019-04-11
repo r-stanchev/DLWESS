@@ -8,4 +8,8 @@
 # the file itself is not expected to change
 *.txt
 
+# Ignore .pyc files as well as the list-of-tuples and 
+# list-of-lists version of the dictionary
 *.pyc
+data.py
+tuples_data.py
