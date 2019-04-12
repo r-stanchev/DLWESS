@@ -8,10 +8,14 @@ from gensim.scripts.glove2word2vec import glove2word2vec
 import sys
 
 
+
+
+
 '''
-Make every word lowercase, tokenize each line, train the model and save it
+Make every word lowercase, tokenize each line to remove any reamining non alpha-numeric characters,
+train the model and return it
 '''
-def create_model_dict():
+def get_dict_model(sg):
     # Tokenizer which removes all but alphabetical characters and numbers
     tokenizer = RegexpTokenizer("[a-zA-Z]+")
 
@@ -22,7 +26,28 @@ def create_model_dict():
         data[t] = tokenizer.tokenize(str(data[t]))
 
     # Train the model and save it in the current working directory
-    model = gensim.models.Word2Vec(refined_data,min_count=1,size=10)
+    model = gensim.models.Word2Vec(data,size=150,window=13,sg=sg)
+    return model
+
+
+
+
+'''
+Make every word lowercase, tokenize each line to remove any reamining non alpha-numeric characters,
+train the model and save it
+'''
+def create_and_save_model_dict():
+    # Tokenizer which removes all but alphabetical characters and numbers
+    tokenizer = RegexpTokenizer("[a-zA-Z]+")
+
+    # Make every word lowercase and tokenize each line 
+    for t,row in enumerate(data):
+        for i,element in enumerate(row):
+            row[i] = element.lower()
+        data[t] = tokenizer.tokenize(str(data[t]))
+
+    # Train the model and save it in the current working directory
+    model = gensim.models.Word2Vec(data)
     model.save("./models/dict_model")
 
 
@@ -37,7 +62,7 @@ Note:    When replacing the currently used word vector file, make sure to place 
 
 since it is required by the glove2word2vec function call.
 '''
-def create_model_glove():
+def create_and_save_model_glove():
     glove_file = datapath("glove.6B.50d.txt")
     tmp_file = get_tmpfile("test_word2vec.txt")
     _ = glove2word2vec(glove_file,tmp_file)
@@ -51,9 +76,9 @@ def main():
         print("Enter either   dict   or   glove   for the respective source.")        
     else:
         if sys.argv[1] == "dict":
-            create_model_dict()
+            create_and_save_model_dict()
         elif sys.argv[1] == "glove":
-            create_model_glove()
+            create_and_save_model_glove()
         else:
             print("Enter either   dict   or   glove   for the respective source.")
 
