@@ -217,30 +217,12 @@ with open("data.py","w") as f2:
         # Replaces all single quotes with double ones 
         res = re.sub(r"\"\)","\"],",res,1)
         res = re.sub(r"\'\)","\"],",res,1)
+        
+        # This line fixes a specific singular problem that was left out by the rest of the script
+        res = re.sub(r"\,\.\"\]\,",",",res,1)
+
+            
         f2.write(res)
     f2.write("\n]")
 
 os.remove("temp.txt")
-
-
-'''
-                After running these scripts on the the file "azdictionary.txt" I had to manually delete
-                a couple of lines which were preventing for the rest of the entries to be in dictionary 
-                format. 
-
-                                                UPDATE 1: 
-                I removed the problematic lines from the original "azdictionary.txt" file so
-                there is no need to delete them after the pre-processing step each time. 
-                The end-ruslt file is a .py file. In order to work with this dictionary, it is
-                neccessary to first convert the tuples to a list(place angle brackets around them 
-                and name the lsit) and import the file wherever it is going to be used.
-
-                                                UPDATE 2:
-                Need to remove all instances of   /.    and     /,    after the scipt finishes.
-                This is easily done thorugh the text editor's find/replace functions.
-
-
-                                                UPDATE 3:
-                Line 87317 has double closing brackets. Need to delete one of them.
-                
-'''
