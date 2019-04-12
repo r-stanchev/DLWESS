@@ -6,7 +6,6 @@ book,paper,7.46
 plane,car,5.77
 train,car,6.31
 telephone,communication,7.50
-media,radio,7.42
 drug,abuse,6.85
 bread,butter,6.19
 cucumber,potato,5.92
@@ -76,7 +75,6 @@ money,possession,7.29
 money,bank,8.50
 money,deposit,7.73
 money,withdrawal,6.88
-money,laundering,5.65
 money,operation,3.31
 tiger,feline,8.00
 tiger,carnivore,7.08

@@ -20,6 +20,8 @@ are defenitely in the dictionary.
 
 
 
+
+
 def update_statistics(diff,current_pair,pair_diff_list,running_diff,seen_differences):
     running_diff += diff
     rounded_diff = round(diff,2)
@@ -33,11 +35,11 @@ def takeSecondElement(words_and_diff_tuple):
     return words_and_diff_tuple[1]
 
 
-def do_comparison(name):
+def do_comparison(model):
     with open("./test_words.csv") as csvfile:
         pairs = csv.reader(csvfile, delimiter=',')
         next(pairs)      # skip first line of the file (column headings)
-        with open("./results/" + str(name) + ".txt","w") as result:
+        with open("./results/results.txt","w") as result:
             result.write("%-35s %-15s %-15s %s\n" % ("Pairs","Human result","Model result", "Difference"))
             
             # Initialize statistical variables
@@ -84,3 +86,12 @@ def do_comparison(name):
 
 
 
+
+def main():
+    # Generate model and pass it to the comparison function
+    do_comparison(get_dict_model())
+
+
+
+if __name__ == "__main__":
+    main()

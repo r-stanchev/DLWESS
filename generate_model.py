@@ -15,7 +15,7 @@ import sys
 Make every word lowercase, tokenize each line to remove any reamining non alpha-numeric characters,
 train the model and return it
 '''
-def get_dict_model(sg):
+def get_dict_model():
     # Tokenizer which removes all but alphabetical characters and numbers
     tokenizer = RegexpTokenizer("[a-zA-Z]+")
 
@@ -26,7 +26,7 @@ def get_dict_model(sg):
         data[t] = tokenizer.tokenize(str(data[t]))
 
     # Train the model and save it in the current working directory
-    model = gensim.models.Word2Vec(data,size=150,window=13,sg=sg)
+    model = gensim.models.Word2Vec(data,size=150,window=13,sg=1,min_count=7,hs=1,alpha=0.025)
     return model
 
 
