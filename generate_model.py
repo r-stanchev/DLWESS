@@ -13,7 +13,7 @@ import sys
 
 '''
 Make every word lowercase, tokenize each line to remove any reamining non alpha-numeric characters,
-train the model and return it
+train the dictionary model and return it
 '''
 def get_dict_model():
     # Tokenizer which removes all but alphabetical characters and numbers
@@ -47,8 +47,24 @@ def create_and_save_model_dict():
         data[t] = tokenizer.tokenize(str(data[t]))
 
     # Train the model and save it in the current working directory
-    model = gensim.models.Word2Vec(data)
+    model = gensim.models.Word2Vec(data,size=150,window=13,sg=1,min_count=7,hs=1,alpha=0.025)
     model.save("./models/dict_model")
+
+
+
+
+'''
+Create a model using the pre-trained word vectors, and return it
+'''
+def get_glove_model():
+    glove_file = datapath("glove.6B.50d.txt")
+    tmp_file = get_tmpfile("test_word2vec.txt")
+    _ = glove2word2vec(glove_file,tmp_file)
+
+    model = KeyedVectors.load_word2vec_format(tmp_file)
+    return model
+
+
 
 
 '''

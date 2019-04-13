@@ -1,7 +1,8 @@
 import csv
 import gensim
+import sys
 
-from generate_model import get_dict_model
+from generate_model import get_dict_model, get_glove_model
 
 
 '''
@@ -88,8 +89,23 @@ def do_comparison(model):
 
 
 def main():
-    # Generate model and pass it to the comparison function
-    do_comparison(get_dict_model())
+    if len(sys.argv) != 2:
+        print("Enter either   dict   or   glove   for the respective source.")        
+    else:
+        if sys.argv[1] == "dict":
+            # Generate model from the dictionary and pass it to the comparison function
+            do_comparison(get_dict_model())
+        elif sys.argv[1] == "glove":
+            # Generate model from the pre-trained GloVe vectors and pass it to the comparison function
+            do_comparison(get_glove_model())
+        else:
+            print("Enter either   dict   or   glove   for the respective source.")
+
+
+
+
+
+    
 
 
 
