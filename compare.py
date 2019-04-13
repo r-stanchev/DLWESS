@@ -41,7 +41,7 @@ def do_comparison(model):
         pairs = csv.reader(csvfile, delimiter=',')
         next(pairs)      # skip first line of the file (column headings)
         with open("./results/results.txt","w") as result:
-            result.write("%-35s %-15s %-15s %s\n" % ("Pairs","Human result","Model result", "Difference"))
+            result.write("%-35s %-15s %-15s %s\n" % ("Word pairs","Subject score","Model score", "Difference"))
             
             # Initialize statistical variables
             running_diff, max_diff = (0,0)
