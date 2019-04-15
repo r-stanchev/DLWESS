@@ -26,7 +26,7 @@ def get_dict_model():
         data[t] = tokenizer.tokenize(str(data[t]))
 
     # Train the model and save it in the current working directory
-    model = gensim.models.Word2Vec(data,size=150,window=13,sg=0,min_count=7,hs=1,alpha=0.025)
+    model = gensim.models.Word2Vec(data,size=150,window=13,min_count=7,sg=0,hs=1,cbow_mean=1,alpha=0.025)
     return model
 
 
