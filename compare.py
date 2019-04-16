@@ -4,20 +4,15 @@ import sys
 
 from generate_model import get_dict_model, get_glove_model
 
+from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
 
-'''
-IMPORTANT!
+from gensim.models import KeyedVectors
 
--Cases where one of the words in a pair can not be found in the dict, 
-are skipped entirely.
 
--For calculating the min difference, I have skipped the 0-diff cases entirely.
 
--Saw which words from set1.csv couldn't be looked up in the dictionary and 
-created a new test_words set, from which those words are excluded.
-Hence, no more need for the try-expect block, since all words in test_words.csv
-are defenitely in the dictionary.
-'''
+
+
 
 
 
@@ -86,6 +81,62 @@ def do_comparison(model):
                 ,"Top 3 pairs with the smallest(non-zero) difference: " + top_3_smallest))
 
 
+def compare_most_similar():
+    dict_model = gensim.models.Word2Vec.load("./models/dict_model")
+    glove_model = KeyedVectors.load("./models/glove_model_6B_50d")
+
+    word = ""
+    while word != "quit":
+        word = raw_input("\nEnter word: ").lower()
+        words = word.split()
+        if words[0] == "quit" and len(words) == 1:
+            break
+        
+        # If the user entered only 1 word, show the top 5 most similar words to it
+        elif len(words) == 1:
+            try:
+                synonym_dict = dict_model.similar_by_word(str(word), topn=5)
+                synonym_glove = glove_model.similar_by_word(str(word), topn=5)
+            except Exception:
+                print("Error! The word could not be found in the corpus. Perhaps try a different word?")
+                continue
+            # Show results
+            print("The top 5 most similar words are:\n")
+            for n,_ in enumerate(synonym_dict):
+                # print(str(n+1) + ")\t(Word2Vec) " + str(synonym_dict[0]) + "\t\t(GloVe) " + str(synonym_glove[0]))
+                print("%s)   (Word2Vec) %-20s (GloVe) %s\n" % (n+1,synonym_dict[n][0],synonym_glove[n][0]))
+
+
+
+def tsne_plot(model):
+    "Creates and TSNE model and plots it"
+    labels = []
+    tokens = []
+
+    for word in model.wv.vocab:
+        tokens.append(model[word])
+        labels.append(word)
+    
+    tsne_model = TSNE(perplexity=40, n_components=2, init='pca', n_iter=2500, random_state=23)
+    new_values = tsne_model.fit_transform(tokens)
+
+    x = []
+    y = []
+    for value in new_values:
+        x.append(value[0])
+        y.append(value[1])
+        
+    plt.figure(figsize=(16, 16)) 
+    for i in range(len(x)):
+        plt.scatter(x[i],y[i])
+        plt.annotate(labels[i],
+                     xy=(x[i], y[i]),
+                     xytext=(5, 2),
+                     textcoords='offset points',
+                     ha='right',
+                     va='bottom')
+    plt.show()
+
 
 
 def main():
@@ -94,10 +145,13 @@ def main():
     else:
         if sys.argv[1] == "dict":
             # Generate model from the dictionary and pass it to the comparison function
-            do_comparison(get_dict_model())
+            model = get_dict_model()
+            # tsne_plot(model)      # Uncomment to produce a plot of embeddings(takes ~10mins)
+            do_comparison(model)
         elif sys.argv[1] == "glove":
             # Generate model from the pre-trained GloVe vectors and pass it to the comparison function
-            do_comparison(get_glove_model())
+            model = get_glove_model()
+            do_comparison(model)
         else:
             print("Enter either   dict   or   glove   for the respective source.")
 
