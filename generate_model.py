@@ -6,6 +6,7 @@ from gensim.test.utils import datapath, get_tmpfile
 from gensim.models import KeyedVectors
 from gensim.scripts.glove2word2vec import glove2word2vec
 import sys
+import os
 
 
 
@@ -37,6 +38,10 @@ Make every word lowercase, tokenize each line to remove any reamining non alpha-
 train the model and save it
 '''
 def create_and_save_model_dict():
+    # Create a folder to store the models if one doesn't already exist
+    if not os.path.exists("./models"):
+        os.makedirs("./models")
+
     # Tokenizer which removes all but alphabetical characters and numbers
     tokenizer = RegexpTokenizer("[a-zA-Z]+")
 
@@ -68,17 +73,23 @@ def get_glove_model():
 
 
 '''
-Create a model using the pre-trained word vectors, 
-downloaded from     https://nlp.stanford.edu/projects/glove/ 
+Create a model using the pre-trained word vectors from  https://nlp.stanford.edu/projects/glove/
 
+Download link: http://nlp.stanford.edu/data/glove.6B.zip 
+     
 
-Note:    When replacing the currently used word vector file, make sure to place it in
+Note: Make sure to palce the files(after extracting the downloaded ZIP file) in the following directory,
+in order to be able to use the pre-trained word vectors:
 
-/home/csunix/sc16rbs/Documents/Third_Year/Final_Year_Project/code/venv/lib/python2.7/site-packages/gensim/test/test_data
+virtual-environment-folder/lib/python2.7/site-packages/gensim/test/test_data
 
-since it is required by the glove2word2vec function call.
+where virtual-environment-folder is the name of your virtual environment folder.
 '''
 def create_and_save_model_glove():
+    # Create a folder to store the models if one doesn't already exist
+    if not os.path.exists("./models"):
+        os.makedirs("./models")
+
     glove_file = datapath("glove.6B.50d.txt")
     tmp_file = get_tmpfile("test_word2vec.txt")
     _ = glove2word2vec(glove_file,tmp_file)

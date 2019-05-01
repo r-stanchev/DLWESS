@@ -33,6 +33,7 @@ def lookup_word(word):
 
 def keyword_matcher():
     print("\nWelcome to Rado's dictionary service!\nSimply enter a word which you want to know the meaning of.\n")
+    print("\n To exit the service, simply type    quit")
     word = ""
     while word != "quit":
         word = raw_input("\nEnter word: ")

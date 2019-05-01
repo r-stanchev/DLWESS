@@ -1,6 +1,7 @@
 import csv
 import gensim
 import sys
+import os
 
 from generate_model import get_dict_model, get_glove_model
 
@@ -8,12 +9,6 @@ from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 
 from gensim.models import KeyedVectors
-
-
-
-
-
-
 
 
 
@@ -32,6 +27,8 @@ def takeSecondElement(words_and_diff_tuple):
 
 
 def do_comparison(model):
+    if not os.path.exists("./results"):
+        os.makedirs("./results")
     with open("./test_words.csv") as csvfile:
         pairs = csv.reader(csvfile, delimiter=',')
         next(pairs)      # skip first line of the file (column headings)
@@ -146,7 +143,11 @@ def main():
         if sys.argv[1] == "dict":
             # Generate model from the dictionary and pass it to the comparison function
             model = get_dict_model()
-            # tsne_plot(model)      # Uncomment to produce a plot of embeddings(takes ~10mins)
+
+            # Uncomment to produce a plot of embeddings
+            # !!! Takes ~10mins !!!
+            # tsne_plot(model)
+            
             do_comparison(model)
         elif sys.argv[1] == "glove":
             # Generate model from the pre-trained GloVe vectors and pass it to the comparison function
@@ -155,11 +156,6 @@ def main():
         else:
             print("Enter either   dict   or   glove   for the respective source.")
 
-
-
-
-
-    
 
 
 

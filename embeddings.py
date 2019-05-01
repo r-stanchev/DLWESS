@@ -11,6 +11,7 @@ def embeddings(model):
     print("\nIf you'd like to see which words are semantically similar to a particular word,\nsimply enter the word to see which 5 words are the most similar to it.\n")
     print("If you'd like to find out how semantically similar two words are - enter the two words to see the similarity score.\n")
     print("There is also the option to compare two separate sentences. Simply write your first sentence, press enter and than you second sentence.\n")
+    print("\n To exit the service, simply type    quit")
     word = ""
     while word != "quit":
         word = raw_input("\nEnter word: ").lower()
