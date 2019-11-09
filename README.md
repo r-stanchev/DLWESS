@@ -1,6 +1,6 @@
 # Final Year Project
 
-**This is the GitLab repository for my final year project.**
+**This is the Github repository for my final year project.**
 
 **Author**: Radomir Stanchev  
 **Title**: Deep Learning of Word Embeddings for Semantic Search  
